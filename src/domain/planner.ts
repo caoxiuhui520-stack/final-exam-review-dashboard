@@ -24,8 +24,8 @@ export function buildDailyPlan(
     minutes += task.minutes;
   }
 
-  const orderedModules = (Object.keys(mastery) as ExamModule[])
-    .toSorted((left, right) => mastery[left] - mastery[right]);
+  const orderedModules = [...(Object.keys(mastery) as ExamModule[])]
+    .sort((left, right) => mastery[left] - mastery[right]);
 
   for (const module of orderedModules) {
     const template = taskTemplates[module];
