@@ -26,10 +26,10 @@ describe("question bank", () => {
     expect(questions.some((question) => question.isVariant)).toBe(true);
     const audioQuestions = questions.filter((item) => item.audio);
     expect(new Set(audioQuestions.map((question) => question.audio?.file))).toEqual(
-      new Set(["/audio/college-test-one.mp3", "/audio/college-test-two.mp3"]),
+      new Set(["./audio/college-test-one.mp3", "./audio/college-test-two.mp3"]),
     );
     for (const question of audioQuestions) {
-      expect(question.audio?.file).toMatch(/^\/audio\/college-test-(one|two)\.mp3$/);
+      expect(question.audio?.file).toMatch(/^\.\/audio\/college-test-(one|two)\.mp3$/);
       if (question.audio?.start !== undefined && question.audio.end !== undefined) {
         expect(question.audio.end).toBeGreaterThan(question.audio.start);
       }

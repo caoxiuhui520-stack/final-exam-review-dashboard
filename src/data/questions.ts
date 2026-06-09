@@ -49,8 +49,8 @@ function blank(
 }
 
 const listeningSource = "《新潮大学英语四级考试教程》（第三版）真题训练一 Section A";
-const audioOne = { file: "/audio/college-test-one.mp3", label: "College Test One Audio" };
-const audioTwo = { file: "/audio/college-test-two.mp3", label: "College Test Two Audio" };
+const audioOne = { file: "./audio/college-test-one.mp3", label: "College Test One Audio" };
+const audioTwo = { file: "./audio/college-test-two.mp3", label: "College Test Two Audio" };
 
 export const questions: Question[] = [
   choice("lis-01", "listening", "What do we learn about the JetBlue Airlines flight?", [
