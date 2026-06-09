@@ -6,6 +6,7 @@ type StudyContextValue = {
   state: StudyState;
   recordAttempt: (attempt: Attempt) => void;
   toggleMarked: (questionId: string) => void;
+  saveDraft: (draftId: string, answers: Record<string, string>) => void;
 };
 
 const StudyContext = createContext<StudyContextValue | null>(null);
@@ -35,6 +36,10 @@ export function StudyProvider({ children }: { children: ReactNode }) {
           ? current.markedQuestionIds.filter((id) => id !== questionId)
           : [...current.markedQuestionIds, questionId],
       })),
+      saveDraft: (draftId, answers) => update((current) => ({
+        ...current,
+        drafts: { ...current.drafts, [draftId]: answers },
+      })),
     }}>
       {children}
     </StudyContext.Provider>
@@ -46,4 +51,3 @@ export function useStudy() {
   if (!value) throw new Error("useStudy must be used within StudyProvider");
   return value;
 }
-
