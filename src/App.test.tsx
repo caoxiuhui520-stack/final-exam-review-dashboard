@@ -11,7 +11,7 @@ test("renders the real exam dashboard and module shortcuts", () => {
   expect(screen.getByRole("heading", { name: /今晚，拿下/ })).toBeInTheDocument();
   expect(screen.getAllByText("2026.06.25")).toHaveLength(2);
   expect(screen.getAllByRole("link", { name: /模拟考试/ })).toHaveLength(2);
-  expect(screen.getByText("写作")).toBeInTheDocument();
+  expect(screen.getAllByText("写作")).toHaveLength(2);
 });
 
 test("shows immediate feedback and records a practice answer", async () => {
