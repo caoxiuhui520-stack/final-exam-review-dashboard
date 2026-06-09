@@ -1,4 +1,4 @@
-import type { Attempt, Question } from "./types";
+import type { Attempt, ExamModule, Question } from "./types";
 
 const normalize = (value: string) =>
   value.trim().toLocaleLowerCase().replaceAll("-", " ").replace(/\s+/g, " ");
@@ -29,3 +29,10 @@ export function calculateMastery(attempts: Attempt[]) {
   return Math.max(0, Math.min(100, Math.round((correct / recent.length) * 100)));
 }
 
+export function calculateModuleMastery(
+  attempts: Attempt[],
+  module: ExamModule,
+  resolveModule: (questionId: string) => ExamModule | undefined,
+) {
+  return calculateMastery(attempts.filter((attempt) => resolveModule(attempt.questionId) === module));
+}

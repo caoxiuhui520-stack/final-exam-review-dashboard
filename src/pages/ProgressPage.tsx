@@ -1,4 +1,5 @@
-import { calculateMastery } from "../domain/grading";
+import { calculateModuleMastery } from "../domain/grading";
+import { questionsById } from "../data/questions";
 import { moduleLabels, type ExamModule } from "../domain/types";
 import { useStudy } from "../state/StudyContext";
 
@@ -14,8 +15,8 @@ export function ProgressPage() {
       </section>
       <section className="progress-list">
         {(Object.keys(moduleLabels) as ExamModule[]).map((module) => {
-          const attempts = state.attempts.filter((attempt) => attempt.questionId.startsWith(module.slice(0, 3)));
-          const mastery = calculateMastery(attempts);
+          const attempts = state.attempts.filter((attempt) => questionsById.get(attempt.questionId)?.module === module);
+          const mastery = calculateModuleMastery(state.attempts, module, (id) => questionsById.get(id)?.module);
           return (
             <article key={module}>
               <div><h2>{moduleLabels[module]}</h2><strong>{mastery}%</strong></div>
@@ -28,4 +29,3 @@ export function ProgressPage() {
     </main>
   );
 }
-

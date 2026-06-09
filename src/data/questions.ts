@@ -50,6 +50,7 @@ function blank(
 
 const listeningSource = "《新潮大学英语四级考试教程》（第三版）真题训练一 Section A";
 const audioOne = { file: "/audio/college-test-one.mp3", label: "College Test One Audio" };
+const audioTwo = { file: "/audio/college-test-two.mp3", label: "College Test Two Audio" };
 
 export const questions: Question[] = [
   choice("lis-01", "listening", "What do we learn about the JetBlue Airlines flight?", [
@@ -76,6 +77,9 @@ export const questions: Question[] = [
   choice("lis-07", "listening", "Why did Anna Cumber support electric bikes?", [
     "To ease traffic.", "To bring new life downtown.", "To add transport choices.", "To reduce air pollution.",
   ], "B", "She introduced them as a way to bring new life into downtown Jacksonville.", listeningSource, { audio: audioOne }),
+  choice("lis-08", "listening", "What should parents do when discussing money with children?", [
+    "Avoid the topic entirely.", "Use practical examples.", "Focus only on large sums.", "Wait until children are adults.",
+  ], "B", "The conversation recommends practical examples that children can understand.", "College Test Two listening practice", { audio: audioTwo }),
 
   choice("tr-01", "translation", "“造纸术”的英文是：", ["paper cutting", "paper-making", "printing art", "wood carving"], "B", "造纸术固定译为 paper-making。", "中国传统文化词汇复习范围"),
   choice("tr-02", "translation", "“儒家思想”的英文是：", ["Confucianism", "Taoism", "Buddhism", "Classicism"], "A", "儒家思想译为 Confucianism。", "中国传统文化词汇复习范围"),
@@ -120,4 +124,3 @@ export const questions: Question[] = [
 ];
 
 export const questionsById = new Map(questions.map((question) => [question.id, question]));
-

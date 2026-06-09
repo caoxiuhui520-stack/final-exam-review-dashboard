@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import type { Attempt, Question } from "./types";
-import { calculateMastery, gradeQuestion, scoreExam } from "./grading";
+import type { Attempt, ExamModule, Question } from "./types";
+import { calculateMastery, calculateModuleMastery, gradeQuestion, scoreExam } from "./grading";
 
 const choice: Question = {
   id: "q1",
@@ -61,3 +61,16 @@ describe("calculateMastery", () => {
   });
 });
 
+test("calculates module mastery from question metadata rather than id prefixes", () => {
+  const attempts: Attempt[] = [
+    { questionId: "tr-01", answer: "A", correct: true, answeredAt: "2026-06-09" },
+    { questionId: "voc-01", answer: "B", correct: false, answeredAt: "2026-06-09" },
+  ];
+  const modules = new Map<string, ExamModule>([
+    ["tr-01", "translation"],
+    ["voc-01", "vocabulary"],
+  ]);
+
+  expect(calculateModuleMastery(attempts, "translation", (id) => modules.get(id))).toBe(100);
+  expect(calculateModuleMastery(attempts, "vocabulary", (id) => modules.get(id))).toBe(0);
+});

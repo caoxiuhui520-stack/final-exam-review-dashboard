@@ -2,7 +2,8 @@ import { ArrowRight, BookOpen, Clock3, Headphones, Languages, PenLine, WholeWord
 import { Link } from "react-router-dom";
 import { buildDailyPlan } from "../domain/planner";
 import { moduleLabels, type ExamModule } from "../domain/types";
-import { calculateMastery } from "../domain/grading";
+import { calculateModuleMastery } from "../domain/grading";
+import { questionsById } from "../data/questions";
 import { useStudy } from "../state/StudyContext";
 
 const moduleIcons = {
@@ -18,7 +19,7 @@ export function DashboardPage() {
   const mastery = Object.fromEntries(
     (Object.keys(moduleLabels) as ExamModule[]).map((module) => [
       module,
-      calculateMastery(state.attempts.filter((attempt) => attempt.questionId.startsWith(module.slice(0, 3)))),
+      calculateModuleMastery(state.attempts, module, (id) => questionsById.get(id)?.module),
     ]),
   ) as Record<ExamModule, number>;
   const plan = buildDailyPlan("2026-06-09", mastery, []);
@@ -102,4 +103,3 @@ export function DashboardPage() {
     </main>
   );
 }
-
